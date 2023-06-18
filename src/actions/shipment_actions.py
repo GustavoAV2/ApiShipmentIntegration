@@ -1,4 +1,4 @@
-from log import logger
+from src.log import logger
 from src.tools.shipment_handler import ShipmentHandler
 from src.tools.file_handler import FileManager
 from src.actions.database_actions import DatabaseActions

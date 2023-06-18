@@ -1,6 +1,6 @@
 from typing import Dict
 from datetime import datetime
-from log import logger
+from src.log import logger
 from src.domain.models.calendar import Calendar
 from src.tools.cnab_handler import CnabHandler
 
