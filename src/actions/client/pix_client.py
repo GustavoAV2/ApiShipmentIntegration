@@ -1,6 +1,6 @@
 import requests
-from src.entities.shipping import Shipping
-from src.model.billing import BillingModel
+from src.domain.entities.shipping import Shipping
+from src.domain.model.billing import BillingModel
 
 
 class PixClient:

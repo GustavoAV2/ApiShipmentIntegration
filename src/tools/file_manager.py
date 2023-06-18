@@ -1,5 +1,5 @@
 
-class FileActions:
+class FileManager:
 
     def write_file(self, filename, content, file_type, path):
         full_filename = f"{filename}.{file_type}"

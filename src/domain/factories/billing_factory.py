@@ -1,5 +1,4 @@
-from src.model.billing import BillingModel
-from src.model.sub_models import *
+from src.domain.model.billing import BillingModel
 
 
 class BillingFactory:

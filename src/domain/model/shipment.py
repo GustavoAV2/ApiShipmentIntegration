@@ -1,6 +1,6 @@
-from src.model.sub_models.additional_info import AdditionalInfo
-from src.model.sub_models.calendar import Calendar
-from src.model.sub_models.debtor import Debtor
+from src.domain.model.sub_models.additional_info import AdditionalInfo
+from src.domain.model.sub_models.calendar import Calendar
+from src.domain.model.sub_models.debtor import Debtor
 
 
 class Shipment:

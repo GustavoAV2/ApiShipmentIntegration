@@ -1,5 +1,5 @@
 from log import logger
-from src.services.cnab_processor import CnabProcessor
+from src.tools.cnab_processor import CnabProcessor
 
 
 class ShipmentGenerate:
