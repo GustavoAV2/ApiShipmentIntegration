@@ -13,11 +13,11 @@ class ShippingHistoric:
     Status: str
     CreatedDate = None
 
-    def __init__(self, cpf="", name="", status=ShippingStatus.IN_PROGRESS):
+    def __init__(self, cpf="", name="", created_date=None, status=ShippingStatus.IN_PROGRESS):
         self.Cpf = cpf
         self.Name = name
         self.Status = status
-        self.CreatedDate = datetime.now()
+        self.CreatedDate = created_date if created_date else datetime.now()
 
     def serialize(self):
         return {
