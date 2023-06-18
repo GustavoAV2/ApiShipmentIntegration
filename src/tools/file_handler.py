@@ -1,3 +1,4 @@
+import os
 
 class FileManager:
 
@@ -15,3 +16,7 @@ class FileManager:
         cnab_data = f'{header}\n{detalhe}\n{trailer}'
 
         return cnab_data
+
+    @staticmethod
+    def get_filename(file_path):
+        return os.path.basename(file_path)

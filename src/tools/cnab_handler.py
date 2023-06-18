@@ -1,32 +1,35 @@
+from log import logger
 
-class CnabProcessor:
-    def __init__(self, cnab_filename):
-        self.cnab_filename = cnab_filename
-        self.root_path = '../../input_shipment/'
 
-    def process(self):
-        cnab_data = {}
-        header_data = {}
-        detail_data = {}
-        additional_data = {}
+class CnabHandler:
+    def __init__(self):
+        self.root_path = 'input_shipment/'
 
-        with open(self.root_path + self.cnab_filename, 'r', encoding='ascii') as file:
+    def convert_to_dict(self, cnab_filename):
+        logger.info("Convertendo Arquivo CNAB 750 para JSON")
+
+        header_data, detail_data, additional_data = self._handle_cnab_file(self.root_path + cnab_filename)
+
+        cnab_data = {
+            'header_data': header_data,
+            'detail_data': detail_data,
+            'additional_data': additional_data
+        }
+        return cnab_data
+
+    def _handle_cnab_file(self, full_path):
+        header, detail, additional_info = {}, {}, {}
+        with open(full_path, 'r', encoding='ascii') as file:
             for line in file:
                 register_type = line[0]
-                print(register_type + " - " + line)
 
                 if register_type == '0':
-                    self._process_header(line, header_data)
+                    self._process_header(line, header)
                 elif register_type == '1':
-                    self._process_detail(line, detail_data)
+                    self._process_detail(line, detail)
                 elif register_type == '2':
-                    self._process_additional(line, additional_data)
-
-        cnab_data['header_data'] = header_data
-        cnab_data['detail_data'] = detail_data
-        cnab_data['additional_data'] = additional_data
-
-        return cnab_data
+                    self._process_additional(line, additional_info)
+        return header, detail, additional_info
 
     @staticmethod
     def _process_header(line, data):

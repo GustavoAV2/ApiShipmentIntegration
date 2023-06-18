@@ -1,6 +1,5 @@
 import requests
-from src.domain.entities.shipping import Shipping
-from src.domain.model.billing import BillingModel
+from typing import Dict
 
 
 class PixClient:
@@ -20,20 +19,20 @@ class PixClient:
         except Exception as ex:
             return {}
 
-    def request_create_billing(self, billing_model: BillingModel):
+    def request_create_billing(self, billing_data: Dict):
         self.token = self._request_authorize_token()
         try:
             response = requests.post(self.url + 'cob',
                                      headers={"Authorization": f"Bearer {self.token}"},
-                                     data=billing_model.serialize())
+                                     data=billing_data)
             return response.json()
         except Exception as ex:
             return {}
 
-    def request_search_billing(self, shipping: Shipping):
+    def request_search_billing(self, shipping_data: Dict):
         self.token = self._request_authorize_token()
         try:
-            response = requests.get(self.url + 'cob/' + shipping.TaxId,
+            response = requests.get(self.url + 'cob/' + shipping_data.get('taxId'),
                                     headers={"Authorization": f"Bearer {self.token}"})
             return response.json()
         except Exception as ex:
