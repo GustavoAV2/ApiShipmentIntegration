@@ -19,7 +19,7 @@ async def request_token(payload=Body(...)):
 
 
 @app.post("/process_shipment_file")
-async def process_shipment_file(payload):
+async def process_shipment_file(file):
     shipment_actions = ShipmentActions()
-    shipment_actions.send_converted_file(payload.get('file_path'))
+    shipment_actions.send_converted_file(file)
     raise HTTPException(status_code=400, detail="Insira um arquivo!")
