@@ -57,4 +57,4 @@ def download_file(filename: str):
 
 
 def generate_file_id():
-    return uuid.uuid4()()
+    return uuid.uuid4()
