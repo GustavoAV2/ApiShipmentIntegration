@@ -8,7 +8,7 @@ A API tem a responsabilidade de interpretar os arquivos, gerar o QRCode de cobra
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ![Fluxograma](docs/Fluxograma-Api.jpg)
 
-## Arquitetura do processor em comunicação com os outros projetos
+## Arquitetura da API em comunicação com os outros projetos
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ![Fluxograma](docs/SitiSolution-Arquitetura.jpg)
 
@@ -19,7 +19,7 @@ A API tem a responsabilidade de interpretar os arquivos, gerar o QRCode de cobra
 3. Clone este repositório em sua máquina local.
 4. Navegue até o diretório do projeto:
    ```
-   cd ShipmentFileProcessor
+   cd ApiShipmentIntegration
    ```
 5. Crie um ambiente virtual (opcional, mas recomendado):
    ```
