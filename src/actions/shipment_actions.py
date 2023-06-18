@@ -40,7 +40,7 @@ class ShipmentActions:
         return True
 
     def download_file_data_shipment(self, file_id):
-        filename = file_id + ".cnab"
+        filename = file_id + ".txt"
         file = self.file_manager.get_file(filename, self.file_manager.SEND_PATH)
         historic = self.db.get_historic_by_filename(filename)
         return {
@@ -61,4 +61,4 @@ class ShipmentActions:
 
     @staticmethod
     def create_name(file_id):
-        return str(file_id) + ".cnab"
+        return str(file_id) + ".txt"
