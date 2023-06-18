@@ -29,7 +29,7 @@ class PixClient:
             #                          data=cob_data)
             # return response
             with open("example_data/cob_example.json", 'r') as f:
-                return {"status_code": 403, "data": json.loads(f.read())}
+                return {"status_code": 201, "data": json.loads(f.read())}
 
         except Exception as ex:
             logger.info(f"Erro: {ex.args}")
