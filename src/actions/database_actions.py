@@ -19,7 +19,8 @@ class DatabaseActions:
 
     def get_all_historic(self):
         try:
-            return self.db.get_historic_shipments()
+            historic_shipments = self.db.get_historic_shipments()
+            return [ShippingHistoric(historic.get('cpf'), historic.get('name'), historic.get('created_date'), historic.get('status')) for historic in historic_shipments]
         except Exception as ex:
             logger.info(f"Erro ao buscar historico: {ex.args}")
             return []
