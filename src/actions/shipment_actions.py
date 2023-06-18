@@ -10,9 +10,9 @@ class ShipmentActions:
         self.file_manager = FileManager()
         self.db = DatabaseActions()
 
-    def send_converted_file(self, file_path):
-        filename = self.file_manager.get_filename(file_path)
-        shipment_dict = self.shipment_handler.shipment_generate(filename)
+    def send_converted_file(self, file):
+        self.file_manager.write_file(file.filename, file.file)
+        shipment_dict = self.shipment_handler.shipment_generate(file.filename)
         if not shipment_dict:
             logger.info("Erro ao tratar arquivo, registrando no banco de dados e encerrando operação!")
             self.db.insert_error_shipment(shipment_dict)

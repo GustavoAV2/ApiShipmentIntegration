@@ -1,5 +1,5 @@
 from uuid import uuid4
-from fastapi import FastAPI, File, Body
+from fastapi import FastAPI, UploadFile, File, Body
 from fastapi.exceptions import HTTPException
 from src.actions.shipment_actions import ShipmentActions
 
@@ -18,8 +18,8 @@ async def request_token(payload=Body(...)):
     return ""
 
 
-@app.get("/process_shipment_file")
-async def process_shipment_file(file=File()):
-    if file:
-        shipment_actions = ShipmentActions()
+@app.post("/process_shipment_file")
+async def process_shipment_file(payload):
+    shipment_actions = ShipmentActions()
+    shipment_actions.send_converted_file(payload.get('file_path'))
     raise HTTPException(status_code=400, detail="Insira um arquivo!")

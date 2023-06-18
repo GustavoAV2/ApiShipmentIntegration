@@ -18,6 +18,15 @@ class ShipmentHandler:
             logger.info(f"Erro: {ex.args}")
             return {}
 
+    def shipment_generate_bytes(self, file) -> Dict:
+        try:
+            cnab_data = self.cnab_handler.convert_to_dict(file)
+            shipment = self._assemble_shipment(cnab_data)
+            return shipment
+        except Exception as ex:
+            logger.info(f"Erro: {ex.args}")
+            return {}
+
     @staticmethod
     def _assemble_shipment(cnab_data) -> Dict:
         detail_info = cnab_data['detail_data']
