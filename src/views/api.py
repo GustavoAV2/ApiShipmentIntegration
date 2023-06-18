@@ -3,8 +3,20 @@ from uuid import uuid4
 from src.actions.tasks import task_process_shipment_file
 from src.actions.database_actions import DatabaseActions
 from fastapi import FastAPI, UploadFile, File, Body, BackgroundTasks
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
