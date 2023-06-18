@@ -25,3 +25,6 @@ class MongoDbConnection:
 
     def put_shipment_by_id(self, payload, _id):
         self.collection.update_one({'_id': _id}, payload)
+
+    def get_historic_shipments(self):
+        return self.collection.find()
