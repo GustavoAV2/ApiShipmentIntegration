@@ -1,7 +1,7 @@
 from uuid import uuid4
-from fastapi import FastAPI, UploadFile, File, Body
+from src.actions.tasks import task_process_shipment_file
+from fastapi import FastAPI, UploadFile, File, Body, BackgroundTasks
 from fastapi.exceptions import HTTPException
-from src.actions.shipment_actions import ShipmentActions
 
 app = FastAPI()
 
@@ -19,8 +19,6 @@ async def request_token(payload=Body(...)):
 
 
 @app.post("/process_shipment_file")
-async def process_shipment_file(file: UploadFile = File(...)):
-    shipment_actions = ShipmentActions()
-    if shipment_actions.send_converted_file(file):
-        return {"status": "Cobrança gerada com sucesso!"}
-    raise HTTPException(status_code=400, detail="Insira um arquivo!")
+async def process_shipment_file(background_tasks: BackgroundTasks, file: UploadFile = File(...)):
+    background_tasks.add_task(task_process_shipment_file, file=file)
+    return {"status": "Adicionada a fila de processamento!"}
