@@ -7,7 +7,7 @@ class FileManager:
 
     def write_file(self, filename, content):
         with open(self.root_path + filename, "w") as f:
-            f.writelines(content)
+            f.writelines(content.read().decode())
 
     @staticmethod
     def get_filename(file_path):

@@ -19,7 +19,8 @@ async def request_token(payload=Body(...)):
 
 
 @app.post("/process_shipment_file")
-async def process_shipment_file(file):
+async def process_shipment_file(file: UploadFile = File(...)):
     shipment_actions = ShipmentActions()
-    shipment_actions.send_converted_file(file)
+    if shipment_actions.send_converted_file(file):
+        return {"status": "Cobrança gerada com sucesso!"}
     raise HTTPException(status_code=400, detail="Insira um arquivo!")
