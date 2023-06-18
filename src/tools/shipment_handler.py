@@ -66,3 +66,6 @@ class ShipmentHandler:
         ]
 
         return shipment
+
+    def generate_cnab750_file(self, data):
+        return

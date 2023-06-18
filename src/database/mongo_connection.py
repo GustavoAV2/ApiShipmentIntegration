@@ -28,3 +28,6 @@ class MongoDbConnection:
 
     def get_historic_shipments(self):
         return self.collection.find()
+
+    def find_by_params(self, params):
+        return self.collection.find_one(params)

@@ -1,12 +1,11 @@
-import json
-import uuid
 from uuid import uuid4
-from src.actions.tasks import task_process_shipment_file
+
+from src.actions.shipment_actions import ShipmentActions
+from src.actions.tasks import task_process_shipment_file, generate_file_id
 from src.actions.database_actions import DatabaseActions
-from fastapi import FastAPI, UploadFile, File, Body, BackgroundTasks
+from fastapi import FastAPI, UploadFile, File, BackgroundTasks, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-
 app = FastAPI()
 
 origins = ["*"]
@@ -23,11 +22,6 @@ app.add_middleware(
 @app.get("/")
 async def root():
     return {"message": "Api em funcionamento!"}
-
-
-@app.get("/<pix_url_access_token>")
-async def request_pix_url(pix_url_access_token):
-    return json.loads("example_data/pix_example.json")
 
 
 @app.post("/oauth/token")
@@ -50,11 +44,7 @@ async def request_shipment_historic():
     return database_actions.get_all_historic()
 
 
-@app.get("/download/<filename>")
-def download_file(filename: str):
-    file_path = "/send_shipment/" + filename
-    return FileResponse(file_path, filename="file.txt")
-
-
-def generate_file_id():
-    return uuid.uuid4()
+@app.get("/download/<file_id>")
+def download_file(file_id: str):
+    shipment_actions = ShipmentActions()
+    return shipment_actions.download_file_data_shipment(file_id)

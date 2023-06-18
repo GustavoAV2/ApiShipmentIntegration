@@ -1,13 +1,19 @@
 import os
+from starlette.responses import FileResponse
 
 
 class FileManager:
-    def __init__(self):
-        self.root_path = 'input_shipment/'
+    INPUT_PATH = 'input_shipment/'
+    SEND_PATH = 'send_shipment/'
 
-    def write_file(self, filename, content):
-        with open(self.root_path + filename, "w") as f:
+    @staticmethod
+    def write_file(filename, content, path):
+        with open(path + filename, "w") as f:
             f.writelines(content.read().decode())
+
+    @staticmethod
+    def get_file(filename, path):
+        return FileResponse(path, filename=filename)
 
     @staticmethod
     def get_filename(file_path):
