@@ -7,7 +7,9 @@ class DatabaseActions:
         self.db = MongoDbConnection()
 
     def insert_error_shipment(self, data):
-        shipment_historic = ShippingHistoric(data['devedor']['cpf'], data['devedor']['nome'], ShippingStatus.ERROR)
+        cpf = data.get('devedor').get('cpf') if data.get('devedor') else ""
+        name = data.get('devedor').get('nome') if data.get('devedor') else ""
+        shipment_historic = ShippingHistoric(cpf, name, ShippingStatus.ERROR)
         self.db.insert_shipment(shipment_historic.serialize())
 
     def insert_done_shipment(self, data):
