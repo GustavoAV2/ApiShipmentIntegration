@@ -30,4 +30,11 @@ class MongoDbConnection:
         return self.collection.find()
 
     def find_by_params(self, params):
-        return self.collection.find_one(params)
+        data = self.collection.find_one(params)
+        if data:
+            self.remove_id_field(dict(data))
+            return data
+
+    @staticmethod
+    def remove_id_field(data):
+        del data['_id']

@@ -1,3 +1,4 @@
+import time
 from uuid import uuid4
 
 from src.actions.shipment_actions import ShipmentActions
@@ -44,7 +45,8 @@ async def request_shipment_historic():
     return database_actions.get_all_historic()
 
 
-@app.get("/download/<file_id>")
+@app.get("/download/{file_id}")
 def download_file(file_id: str):
+    time.sleep(1)
     shipment_actions = ShipmentActions()
     return shipment_actions.download_file_data_shipment(file_id)

@@ -34,18 +34,19 @@ class ShipmentActions:
         logger.info("Solicitação de COBRANÇA realizada com sucesso!")
         logger.info("Gerando QR CODE!")
         shipment_dict['qr_code_string'] = self.create_payment_qr_code(response.get('data'))
+        shipment_dict['filename'] = filename
         self.file_manager.write_file(filename, file.file, self.file_manager.SEND_PATH)
         self.db.insert_done_shipment(shipment_dict)
         logger.info("Status da remessa registrada como Concluido")
         return True
 
     def download_file_data_shipment(self, file_id):
-        filename = file_id + ".txt"
+        filename = self.create_name(file_id)
         file = self.file_manager.get_file(filename, self.file_manager.SEND_PATH)
         historic = self.db.get_historic_by_filename(filename)
         return {
             "file": file,
-            "historic": historic
+            "historic": historic if historic else None
         }
 
     def create_payment_qr_code(self, payload):
@@ -58,7 +59,9 @@ class ShipmentActions:
         except Exception as ex:
             logger.info(f"Não foi possível criar o QRCode, erro: {ex.args}")
 
-
     @staticmethod
     def create_name(file_id):
-        return str(file_id) + ".txt"
+        filename = file_id + ".txt"
+        filename = filename.replace("'", "")
+        filename.strip()
+        return filename
