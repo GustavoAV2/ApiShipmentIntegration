@@ -1,3 +1,4 @@
+from src.log import logger
 from src.database.mongo_connection import MongoDbConnection
 from src.domain.entities.shipping_historic import ShippingHistoric, ShippingStatus
 
@@ -15,3 +16,10 @@ class DatabaseActions:
     def insert_done_shipment(self, data):
         shipment_historic = ShippingHistoric(data['devedor']['cpf'], data['devedor']['nome'], ShippingStatus.DONE)
         self.db.insert_shipment(shipment_historic.serialize())
+
+    def get_all_historic(self):
+        try:
+            return self.db.get_historic_shipments()
+        except Exception as ex:
+            logger.info(f"Erro ao buscar historico: {ex.args}")
+            return []
