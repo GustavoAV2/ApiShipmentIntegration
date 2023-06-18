@@ -1,4 +1,5 @@
-from fastapi import FastAPI, File
+from uuid import uuid4
+from fastapi import FastAPI, File, Body
 from fastapi.exceptions import HTTPException
 from src.actions.shipment_actions import ShipmentActions
 
@@ -8,6 +9,13 @@ app = FastAPI()
 @app.get("/")
 async def root():
     return {"message": "Api em funcionamento!"}
+
+
+@app.post("/oauth/token")
+async def request_token(payload=Body(...)):
+    if payload:
+        return {"access_token": uuid4()}
+    return ""
 
 
 @app.get("/process_shipment_file")
